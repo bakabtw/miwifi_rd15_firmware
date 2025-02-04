@@ -1,0 +1,8 @@
+Package: yt-9215s-client
+Version: 1
+Depends: libc
+Source: package/miwifi-third/yt-9215s-client
+Section: opt
+Architecture: arm_cortex-a7_neon-vfpv4
+Installed-Size: 3157
+Description:  yt switch client

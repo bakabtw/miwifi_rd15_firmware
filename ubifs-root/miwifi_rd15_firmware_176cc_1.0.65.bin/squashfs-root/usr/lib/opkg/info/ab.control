@@ -1,0 +1,8 @@
+Package: ab
+Version: 1.3.42-1
+Depends: libc, libpthread
+Source: package/network/utils/ab
+Section: net
+Architecture: arm_cortex-a7_neon-vfpv4
+Installed-Size: 31277
+Description:  This package is used for network speed

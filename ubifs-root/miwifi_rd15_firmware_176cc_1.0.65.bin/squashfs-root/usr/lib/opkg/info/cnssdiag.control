@@ -1,0 +1,9 @@
+Package: cnssdiag
+Version: miwifi_git
+Depends: libc, qca-diag, libnl
+Source: sdk/qca_qsdk/qca_qsdk_spf12.4/feeds/qca/utils/cnssdiag
+Section: QCA
+Maintainer: Qualcomm Atheros
+Architecture: arm_cortex-a7_neon-vfpv4
+Installed-Size: 57499
+Description:  QCA cnssdiag utils

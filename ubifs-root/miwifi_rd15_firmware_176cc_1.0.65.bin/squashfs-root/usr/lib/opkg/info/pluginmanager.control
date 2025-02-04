@@ -1,0 +1,8 @@
+Package: pluginmanager
+Version: 1.1-1.1
+Depends: libc, libjson-c, libuci, libopenssl, libzip, libuuid, libcurl
+Source: package/miwifi/pluginmanager
+Section: data
+Architecture: arm_cortex-a7_neon-vfpv4
+Installed-Size: 26294
+Description:  pluginmanager

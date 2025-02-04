@@ -1,0 +1,8 @@
+Package: miwifi-xthostset
+Version: 1.0-1.0
+Depends: libc, kmod-miwifi-xthostset
+Source: package/miwifi/miwifi-xthostset
+Section: opt
+Architecture: arm_cortex-a7_neon-vfpv4
+Installed-Size: 1792
+Description:  TODO

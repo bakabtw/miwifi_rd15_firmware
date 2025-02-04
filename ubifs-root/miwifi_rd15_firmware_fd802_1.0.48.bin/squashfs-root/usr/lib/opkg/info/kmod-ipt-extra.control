@@ -1,0 +1,15 @@
+Package: kmod-ipt-extra
+Version: 5.4.213-1
+Depends: kernel (=5.4.213-1-a937aa5625ec00488cff09d9e6b9bf82), kmod-ipt-core
+Source: package/kernel/linux
+License: GPLv2
+Section: kernel
+Status: unknown hold not-installed
+Architecture: arm_cortex-a7_neon-vfpv4
+Installed-Size: 4593
+Description:  Other Netfilter (IPv4) kernel modules
+ Includes:
+ - addrtype
+ - owner
+ - pkttype
+ - quota

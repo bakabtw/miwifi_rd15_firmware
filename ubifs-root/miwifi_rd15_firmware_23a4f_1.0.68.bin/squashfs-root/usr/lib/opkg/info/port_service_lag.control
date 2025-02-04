@@ -1,0 +1,8 @@
+Package: port_service_lag
+Version: 1-1.0
+Depends: libc
+Source: package/miwifi/port_service
+Section: opt
+Architecture: arm_cortex-a7_neon-vfpv4
+Installed-Size: 2579
+Description:  Link aggregation

@@ -1,0 +1,9 @@
+Package: luci-mod-admin-CN-common
+Version: 0.11.1-1
+Depends: libc, luci-mod-admin-core, luci-lib-ipkg, luci-mod-admin-base
+Source: feeds/luci/luci
+Section: luci
+Maintainer: LuCI Development Team <luci@lists.subsignal.org>
+Architecture: arm_cortex-a7_neon-vfpv4
+Installed-Size: 787660
+Description:  LuCI Administration - common chinese -featured for full control

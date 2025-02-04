@@ -1,0 +1,6 @@
+/etc/init.d/qca-nss-dp
+/usr/bin/edma_dump
+/lib/modules/5.4.213/qca-nss-dp.ko
+/etc/modules-boot.d/60-qca-nss-dp
+/etc/modules.d/60-qca-nss-dp
+/etc/config/qca_nss_dp

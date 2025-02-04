@@ -1,0 +1,19 @@
+Package: kmod-nf-nathelper-extra
+Version: 5.4.213-1
+Depends: kernel (=5.4.213-1-a937aa5625ec00488cff09d9e6b9bf82), kmod-nf-nat, kmod-lib-textsearch, kmod-ipt-raw, kmod-asn1-decoder, kmod-lib-asn1
+Source: package/kernel/linux
+License: GPLv2
+Section: kernel
+Status: unknown hold not-installed
+Architecture: arm_cortex-a7_neon-vfpv4
+Installed-Size: 55526
+Description:  Extra Netfilter (IPv4) Conntrack and NAT helpers
+ Includes:
+ - amanda
+ - h323
+ - mms
+ - pptp
+ - proto_gre
+ - sip
+ - snmp_basic
+ - broadcast

@@ -1,0 +1,8 @@
+Package: port_service_media
+Version: 1-1.0
+Depends: libc
+Source: package/miwifi/port_service
+Section: opt
+Architecture: arm_cortex-a7_neon-vfpv4
+Installed-Size: 1899
+Description:  IPTV and VOIP service

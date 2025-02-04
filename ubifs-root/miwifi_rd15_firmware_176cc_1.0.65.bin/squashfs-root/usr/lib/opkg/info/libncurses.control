@@ -1,0 +1,11 @@
+Package: libncurses
+Version: 6.2-2
+Depends: libc, terminfo
+Provides: libncursesw
+Source: package/libs/ncurses
+License: MIT
+LicenseFiles: README
+Section: libs
+Architecture: arm_cortex-a7_neon-vfpv4
+Installed-Size: 159469
+Description:  Terminal handling library (Unicode)

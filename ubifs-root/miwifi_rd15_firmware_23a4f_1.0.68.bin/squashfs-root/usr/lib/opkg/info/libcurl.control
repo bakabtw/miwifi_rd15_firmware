@@ -1,0 +1,11 @@
+Package: libcurl
+Version: 8.4.0-1
+Depends: libc, libopenssl, libnghttp2, ca-bundle
+Source: package/network/utils/curl
+License: MIT
+LicenseFiles: COPYING
+Section: libs
+Maintainer: Stan Grishin <stangri@melmac.ca>
+Architecture: arm_cortex-a7_neon-vfpv4
+Installed-Size: 335813
+Description:  A client-side URL transfer library

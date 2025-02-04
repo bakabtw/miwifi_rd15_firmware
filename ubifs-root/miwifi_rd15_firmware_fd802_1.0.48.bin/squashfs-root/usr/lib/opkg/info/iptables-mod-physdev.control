@@ -1,0 +1,9 @@
+Package: iptables-mod-physdev
+Version: 1.6.2-2
+Depends: libc, iptables, kmod-ipt-physdev
+Source: package/network/utils/iptables
+License: GPL-2.0
+Section: net
+Architecture: arm_cortex-a7_neon-vfpv4
+Installed-Size: 1772
+Description:  The iptables physdev match.

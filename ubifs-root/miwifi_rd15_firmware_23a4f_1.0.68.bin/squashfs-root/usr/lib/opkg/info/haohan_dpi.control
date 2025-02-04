@@ -1,0 +1,8 @@
+Package: haohan_dpi
+Version: 1.0-1.0
+Depends: libc, nfnlq-extension, kmod-connattr-haohan
+Source: package/miwifi/haohan_dpi
+Section: opt
+Architecture: arm_cortex-a7_neon-vfpv4
+Installed-Size: 216766
+Description:  TODO

@@ -1,0 +1,9 @@
+Package: wififw_mount_script
+Version: 1
+Depends: libc
+Source: sdk/qca_qsdk/qca_qsdk_spf12.4/feeds/platform_utils/net/wireless
+Section: firmware mount
+Architecture: arm_cortex-a7_neon-vfpv4
+Installed-Size: 1742
+Description:  This package contains a  wifi fw mount  script which can be used
+ to mount WIFIFE partition in to RFS.

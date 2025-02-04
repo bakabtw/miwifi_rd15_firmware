@@ -1,0 +1,9 @@
+Package: libathtestcmd
+Version: miwifi_git-1
+Depends: libc, libpthread, libnl, libtcmd, libtlv2, libtlvutil
+Source: sdk/qca_qsdk/qca_qsdk_spf12.4/feeds/qca/utils/libathtestcmd
+Section: QTI
+Maintainer: Qualcomm Technologies, Inc
+Architecture: arm_cortex-a7_neon-vfpv4
+Installed-Size: 30514
+Description:  QTI libathtestcmd utils

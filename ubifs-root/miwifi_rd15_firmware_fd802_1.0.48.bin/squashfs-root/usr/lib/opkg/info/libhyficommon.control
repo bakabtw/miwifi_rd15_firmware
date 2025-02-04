@@ -1,0 +1,9 @@
+Package: libhyficommon
+Version: miwifi_git-1
+Depends: libc
+Source: sdk/qca_qsdk/qca_qsdk_spf12.4/feeds/qca-lib/libqcacommon
+Section: QCA
+Maintainer: Qualcomm Atheros, Inc.
+Architecture: arm_cortex-a7_neon-vfpv4
+Installed-Size: 28839
+Description:  This Package contains the Hy-Fi Common Functionality Library

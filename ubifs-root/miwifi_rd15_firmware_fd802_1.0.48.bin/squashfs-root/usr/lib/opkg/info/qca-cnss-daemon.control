@@ -1,0 +1,8 @@
+Package: qca-cnss-daemon
+Version: miwifi_git-1
+Depends: libc, libnl, libpthread, qca-qmi-framework
+Source: sdk/qca_qsdk/qca_qsdk_spf12.4/feeds/qca/utils/qca-cnss-daemon
+Section: QCA
+Architecture: arm_cortex-a7_neon-vfpv4
+Installed-Size: 16818
+Description:  QCA Linux QMI sotware

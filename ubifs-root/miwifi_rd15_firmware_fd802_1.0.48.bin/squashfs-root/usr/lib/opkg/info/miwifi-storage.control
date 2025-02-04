@@ -1,0 +1,8 @@
+Package: miwifi-storage
+Version: 1.0-0
+Depends: libc, block-mount
+Source: package/miwifi/miwifi-storage
+Section: opt
+Architecture: arm_cortex-a7_neon-vfpv4
+Installed-Size: 3565
+Description:  miwifi storage service

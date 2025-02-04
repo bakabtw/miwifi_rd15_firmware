@@ -1,0 +1,3 @@
+/lib/modules/5.4.213/qca-nss-ppe-rule.ko
+/usr/bin/acl_dump.sh
+/etc/modules.d/52-qca-nss-ppe-rule

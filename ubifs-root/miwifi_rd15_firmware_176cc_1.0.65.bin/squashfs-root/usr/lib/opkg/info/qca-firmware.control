@@ -1,0 +1,8 @@
+Package: qca-firmware
+Version: 0-1
+Depends: libc
+Source: sdk/qca_qsdk/qca_qsdk_spf12.4/feeds/qca/net/qca-firmware
+Section: QCA
+Architecture: arm_cortex-a7_neon-vfpv4
+Installed-Size: 6952749
+Description:  QCA Wifi Firmware

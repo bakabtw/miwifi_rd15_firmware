@@ -1,0 +1,11 @@
+Package: lua-curl-v3
+Version: 0.3.13-snapshot-1
+Depends: libc, libcurl, lua
+Source: package/feeds/packages/lua-curl-v3
+License: MIT
+LicenseFiles: LICENSE
+Section: lang
+Maintainer: Rainer Poisel <rainer.poisel@gmail.com>
+Architecture: arm_cortex-a7_neon-vfpv4
+Installed-Size: 55951
+Description:  Lua bindings to libcurl (Lua-cURLv3)

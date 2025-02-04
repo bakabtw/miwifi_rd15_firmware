@@ -1,0 +1,304 @@
+<%
+--[[
+    Info    networkPortCustom
+]]--
+local netmode = require("xiaoqiang.common.XQFunction").getNetModeType()
+local features=require("xiaoqiang.XQFeatures").FEATURES
+%>
+<%include("web/inc/head")%>
+<title><%:小米路由器%></title>
+<meta name="viewport" content="width=1200">
+<link href="<%=resource%>/web/css/bc.css?v=<%=ver%>" rel="stylesheet">
+<link href="<%=resource%>/web/css/layout.css?v=<%=ver%>" rel="stylesheet">
+<link href="<%=resource%>/web/css/networkportcustom.css?v=<%=ver%>" rel="stylesheet">
+</head>
+<body>
+<div id="doc">
+    <%include("web/inc/header")%>
+    <%include("web/inc/g.js")%>
+    <div id="bd">
+        <%if netmode == 0 and features["system"] and features["system"]["multiwan"]=="1" then%>
+        <%include("web/inc/dual-wan")%>
+        <%end%>
+
+        <%if netmode == 0 then%>
+        <%include("web/setting/iptv")%>
+        <%end%>
+
+        <%if features["apps"] and features["apps"]["lan_lag"]=="1" then%>
+        <%include("web/inc/lan_lag")%>
+        <%end%>
+
+        <%if netmode == 0 and features["apps"] and features["apps"]["game_port"]=="1" then%>
+        <%include("web/inc/game_port")%>
+        <%end%>
+
+        <%if features["apps"] and features["apps"]["sfp"]=="1" then%>
+        <%include("web/inc/sfp-speed")%>
+        <%end%>
+    </div>
+    <%include("web/inc/footer")%>
+</div>
+</body>
+<%if netmode == 0 and features["system"] and features["system"]["multiwan"]=="1" then%>
+<%include("web/inc/dual-wan.js")%>
+<%end%>
+<script type="text/tmpl" id="portList">
+	{for(var i=0, len=$list.length; i<len; i++)}
+        {if ($list[i]['service'] == 'LAN' && $list[i]['disabled'] != 1)}
+        <div class="listDiv" data-service="{$list[i]['service']}" data-port="{$list[i]['port']}" data-speed="{$list[i]['speed']}">
+        {else}
+        <div class="listDiv disable" data-service="{$list[i]['service']}" data-port="{$list[i]['port']}" data-speed="{$list[i]['speed']}">
+        {/if}
+            <div class="service">{$list[i]['service']}</div>
+            <div class="lanPortImg"></div>
+            <div class="portsIndex">{$list[i]['index']}{if ($list[i]['speed'] == '2.5G')}<span>(2.5G)</span>{/if}</div>
+        </div>
+	{/for}
+</script>
+<script>
+    /*
+        get_ps_map
+    */
+    (function ($) {
+        var idlePortCount = 0; //空闲可复用的端口数量
+
+        //可用端口不足弹框
+        function noIdlePortDialog() {
+            $.dialog({
+                width: 390,
+                title: '<%:提示%>',
+                content: '<%:可用端口不足，请先关闭其他端口功能后再试%>',
+                ok: {},
+                lock: true
+            });
+        }
+        $.noIdlePortDialog = noIdlePortDialog
+        function portMap (config) {
+            if( config == undefined ){
+                return
+            }
+
+            var config = config || {
+                portInfo:undefined,//get_ps_service接口的字段，如rsp['game']
+                el:'.selectDualWanLan',//需要将端口选择渲染到哪里
+                selectCount:1,//选择一个端口即可，还是选择两个
+                service:'<%:游戏网口%>',//service
+                title:'<%:请选择一个网口作为游戏网口%>',//弹窗提示用
+                submitBtnEl: ''//保存按钮，控制显示和隐藏
+            }
+            var portString = config.service == 'WAN2' ? getDualWanPortInfo() : config.portInfo,
+                listDiv = config.el + ' .listDiv',
+                lanBtn = config.el + ' .lanBtn',
+                container = $(config.el),
+                tpl = $('#portList').html()
+
+            var portStrLen = portString != '-1' ? portString.split(' ').length : ''
+
+            $.getJSON('<%=luci.dispatcher.build_url("api","misystem","get_ps_map")%>').done(function(rsp){
+                if( rsp.code == 0 ){
+                    handlerLan(rsp, config.el)
+                }
+            })
+
+            //遍历LAN
+            var handlerLan = function(rsp, el){
+                var arr = []
+                list = rsp.ports
+                idlePortCount = 0;
+                for(var i = 0; i < list.length; i++){
+                    var item = {
+                        index:list[i].index,
+                        service:list[i].service,
+                        speed:list[i].speed,
+                        port:list[i].port,
+                        label:list[i].label,
+                        disabled:0
+                    }
+                    if (list[i].service == "LAN") {
+                        idlePortCount++;
+                    }
+                    // 新设计：游戏网口不支持选择2.5G网口
+                    if (el == '.selectGamePort' && item.speed == '2.5G') {
+                        item.disabled = 1
+                    }
+                    arr.push(item)
+                }
+                $.idlePortCount = idlePortCount
+                var tplData = {
+                    list:arr
+                }
+                container.html( tpl.tmpl(tplData) );
+                setTimeout(function(){
+                    clickFunction();
+                    setVaule();
+                    if(rsp.description && rsp.description!=''){
+                    var description = '<div class="description">'+ rsp.description +'</div>'
+                    container.append(description);
+                    container.css("padding-bottom","40px")
+                    }
+                },10)
+                
+            }
+            var clickFunction = function(){
+                if(config.service == 'WAN2'){
+                    dualWanClickFunction()
+                }else{
+                    if(config.selectCount == 1){
+                        selectOne()
+                    }else if(config.selectCount == 2){
+                        selectTwo()
+                    }else{
+
+                    }
+                }
+            }
+            var selectOne = function(){
+                $(listDiv).click(function(){
+                    if($(this).hasClass("disable") == false ){
+                        $(this).addClass("active");
+                        $(this).siblings().removeClass("active");
+                        $(this).find(".service").text(config.service)
+                        $(listDiv).each(function(){
+                            if($(this).hasClass("active") == false && $(this).hasClass("disable") == false){
+                                $(this).find(".service").text("LAN")
+                            }
+                        })
+                        $(config.submitBtnEl).show()
+                    }
+                })
+            }
+            var selectTwo = function(){
+                $(listDiv).on( 'click', function(){
+                    if($(this).hasClass("disable") ){
+                        return;
+                    }else{
+                        $(this).toggleClass("active");
+                        if($(this).hasClass("active")){
+                            $(this).find(".service").text(config.service)
+                        }else{
+                            $(this).find(".service").text("LAN")
+                        }
+
+                        if($(listDiv + ".active").length==2){
+                            $(config.submitBtnEl).show()
+                            $(listDiv).each(function(){
+                                if($(this).hasClass("active") == false){
+                                    $(this).addClass("disable")
+                                }
+                            })
+                        }else{
+                            $(config.submitBtnEl).hide()
+                            $(listDiv).each(function(){
+                                var lanOrService = $(this).attr("data-service")=='LAN' || $(this).attr("data-service")==config.service
+                                if($(this).hasClass("disable") && lanOrService){
+                                    $(this).removeClass("disable")
+                                }
+                            })
+                        }
+                    }
+                })
+            }
+            var setVaule = function() {
+                if(portString !='' && portString !=undefined && portString != '-1'){
+                    var stringResult = portString.split(' ');
+                    $.each(stringResult,function (index,value){
+                        $(listDiv).each(function(index,item){
+                            if($(item)[0].dataset.port == value
+                                && (
+                                    !$(item).hasClass("disable")
+                                    || (
+                                        $(item).attr("data-service") == config.service
+                                        || (
+                                            config.service == "WAN2"
+                                            && $(item).attr("data-service") == "WAN"
+                                        )
+                                    )
+                                )
+                            ) {
+                                $(item).addClass("active");
+                                $(item).removeClass("disable");
+                                // if text is LAN, change to service
+                                if($(item).attr("data-service") == "LAN") {
+                                    $(item).find(".service").text(config.service)
+                                } // change text WAN to WAN1
+                                else if ($(item).attr("data-service") == "WAN") {
+                                    $(item).find(".service").text("WAN1")
+                                }
+                            }
+                        })
+                    })
+                    // all needed ports are selected, disable other ports
+                    if ($(listDiv + ".active").length == config.selectCount && config.selectCount != 1) {
+                        $(listDiv).each(function(){
+                            if($(this).hasClass("active") == false){
+                                $(this).addClass("disable")
+                            }
+                        })
+                    }
+                }
+            }
+            var dualWanClickFunction = function(){
+                $(listDiv).on( 'click', function(){
+                    if($(this).hasClass("disable") ){
+                        return;
+                    }else{
+                        $(this).toggleClass("active");
+                        if($(this).hasClass("active")){
+                            if(isSelectWan()){
+                                $(this).find(".service").text('WAN2')
+                            }else{
+                                $(this).find(".service").text('WAN1')
+                            }
+                        }else{
+                            $(this).find(".service").text("LAN")
+                        }
+                        // selected two ports, disable other ports
+                        if($(listDiv + ".active").length == 2){
+                            $(config.submitBtnEl).show()
+                            $(listDiv).each(function(){
+                                if($(this).hasClass("active") == false){
+                                    $(this).addClass("disable")
+                                }
+                            })
+                        }else{
+                            $(config.submitBtnEl).hide()
+                            $(listDiv).each(function(){
+                                var $this_service = $(this).attr("data-service")
+                                var lanOrService = $this_service =='LAN' || $this_service == config.service || $this_service == 'WAN'
+                                if($(this).hasClass("disable") && lanOrService){
+                                    $(this).removeClass("disable")
+                                }
+                            })
+                        }
+                    }
+                })
+            }
+            //是否当前选择了WAN
+            var isSelectWan = function(){
+                var isSelectWan = false
+                $(listDiv).each(function(){
+                    if($(this).find('.service').text() == 'WAN1'){
+                        isSelectWan = true
+                    }
+                })
+                return isSelectWan
+            }
+            //双WAN占用了哪个端口
+            function getDualWanPortInfo(){
+                var portString = ''
+                var len = 1
+                config.portInfo.forEach(function(item,index){
+                    if(item.port != -1){
+                        portString += item.port + ' '
+                    }
+                })
+                len = portString.length - 1 
+                return portString.substring(0,len)
+            }
+        };
+        $.portMap = portMap
+    }(jQuery));
+
+</script>
+</html>

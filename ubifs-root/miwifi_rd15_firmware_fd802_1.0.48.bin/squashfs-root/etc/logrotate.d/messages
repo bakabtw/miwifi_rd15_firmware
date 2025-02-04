@@ -1,0 +1,14 @@
+/var/messages {
+	size 512k
+
+	# olddir on different device
+	createolddir 755 root root
+	olddir /data/usr/log
+	copytruncate
+	su root root
+
+	# 0.gz 1.gz 2.gz 3.gz 4.gz 5.gz
+	start 0
+	rotate 6
+	compress
+}

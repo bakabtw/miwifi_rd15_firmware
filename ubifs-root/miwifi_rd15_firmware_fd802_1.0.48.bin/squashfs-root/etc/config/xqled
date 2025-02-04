@@ -1,0 +1,131 @@
+config driver driver
+    option name 'sysfs'
+    option profile 'RD15'
+
+config env_var 'current_rgb_brightness'
+    option name 'CURR_BRI'
+    option method 'cat /sys/class/leds/rgb/brightness'
+
+config action 'rgb_blue_on'
+    option led 'rgb'
+    option options 'trigger brightness'
+    option trigger 'none'
+    option brightness '1207959552'
+
+config action 'rgb_orange_on'
+    option led 'rgb'
+    option options 'trigger brightness'
+    option trigger 'none'
+    option brightness '4718592'
+
+config action 'rgb_blue_orange_on'
+    option led 'rgb'
+    option options 'trigger brightness'
+    option trigger 'none'
+    option brightness '573767680'
+
+config action 'rgb_off'
+    option led 'rgb'
+    option options 'trigger brightness'
+    option trigger 'none'
+    option brightness '0'
+
+config action 'rgb_blue_breath'
+    option led 'rgb'
+    option options 'trigger repeat prepattern pattern'
+    option trigger 'pattern'
+    option repeat '-1'
+    option prepattern '$CURR_BRI 1000 1207959552 0'
+    option pattern '1207959552 2000 0 2000'
+
+config action 'rgb_orange_breath'
+    option led 'rgb'
+    option options 'trigger repeat prepattern pattern'
+    option trigger 'pattern'
+    option repeat '-1'
+    option prepattern '$CURR_BRI 1000 4718592 0'
+    option pattern '4718592 2000 0 2000'
+
+config action 'rgb_blue_flash'
+    option led 'rgb'
+    option options 'trigger delay_on delay_off brightness'
+    option trigger 'timer'
+    option delay_on '200'
+    option delay_off '200'
+    option brightness '1207959552'
+
+config action 'rgb_orange_flash'
+    option led 'rgb'
+    option options 'trigger delay_on delay_off brightness'
+    option trigger 'timer'
+    option delay_on '200'
+    option delay_off '200'
+    option brightness '4718592'
+
+config action 'rgb_blue_orange_flash'
+    option led 'rgb'
+    option options 'trigger delay_on delay_off brightness'
+    option trigger 'timer'
+    option delay_on '200'
+    option delay_off '200'
+    option brightness '573767680'
+
+config func 'sys_booting'
+    option action 'rgb_orange_on'
+
+config func 'sys_init'
+    option action 'rgb_orange_breath'
+
+config func 'sys_ok'
+    option action 'rgb_orange_on'
+
+config func 'sys_on'
+    option action 'rgb_orange_on'
+
+config func 'sys_off'
+    option action 'rgb_off'
+
+config func 'sys_ota'
+    option action 'rgb_orange_flash'
+
+config func 'internet_ok'
+    option action 'rgb_blue_on'
+
+config func 'internet_fail'
+    option action 'rgb_orange_on'
+
+config func 'link_down'
+    option action 'rgb_orange_on'
+
+config func 'meshing'
+    option action 'rgb_blue_flash'
+
+config func 'mesh_join'
+    option action 'rgb_orange_flash'
+
+config func 'mesh_discovery'
+    option action 'rgb_blue_breath'
+
+config func 'mesh_finish'
+    option action 'rgb_blue_on'
+
+config func 'func_on'
+    option action 'rgb_blue_orange_on'
+
+config func 'func_off'
+    option action 'rgb_off'
+
+config func 'systest_ongo'
+    option action 'rgb_blue_orange_flash'
+
+config func 'systest_fail'
+    option action 'rgb_blue_orange_on'
+
+config func 'factest_blue'
+    option action 'rgb_blue_on'
+
+config func 'factest_orange'
+    option action 'rgb_orange_on'
+
+config func 'factest_off'
+    option action 'rgb_off'

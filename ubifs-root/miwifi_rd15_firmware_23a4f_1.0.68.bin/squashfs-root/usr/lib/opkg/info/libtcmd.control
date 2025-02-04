@@ -1,0 +1,9 @@
+Package: libtcmd
+Version: miwifi_git-1
+Depends: libc, libpthread, libnl
+Source: sdk/qca_qsdk/qca_qsdk_spf12.4/feeds/qca/utils/libtcmd
+Section: QCA
+Maintainer: Qualcomm Atheros
+Architecture: arm_cortex-a7_neon-vfpv4
+Installed-Size: 4468
+Description:  QCA libtcmd utils

@@ -1,0 +1,83 @@
+#!/bin/sh /etc/rc.common
+# Copyright (c) 2022 Qualcomm Technologies, Inc.
+#
+# All Rights Reserved.
+# Confidential and Proprietary - Qualcomm Technologies, Inc.
+#
+
+START=01
+
+
+. /lib/functions.sh
+
+
+generate_license_info()
+{
+    local lib_firmware_path="/lib/firmware"
+    local license_path="license"
+    local license_info_file_name=${license_path}/license_info.conf
+    cd ${lib_firmware_path}
+    mkdir -p ${license_path}
+    echo [licensefile] > ${license_info_file_name}
+    echo filecount `find . -type f -name '*.pfm' | wc -l`>> ${license_info_file_name}
+    find . -type f -name '*.pfm' | sed 's/.*/file &/'>> ${license_info_file_name}
+    cd -
+}
+
+read_license_from_partition()
+{
+
+    local mtdblock=$(find_mtd_part 0:LICENSE)
+
+    local temp="/tmp"
+    local license_rootfs_path="/lib/firmware/license"
+
+    if [ -z "$mtdblock" ]; then
+        # read from mmc
+        mtdblock=$(find_mmc_part 0:LICENSE)
+    fi
+
+    if [ -z "$mtdblock" ]; then
+        echo "No License partition in device" > /dev/console
+        return
+    fi
+
+    # load license_tar.gz
+
+    mkdir -p ${temp}
+
+    dd if=${mtdblock} of=${temp}/license.tar.gz bs=2K conv=sync
+
+    mkdir -p ${temp}/license
+    tar -xzf ${temp}/license.tar.gz -C ${temp}/license/.
+
+
+
+    files=$(ls ${temp}/license/*.pfm | wc -l)
+
+    if [ $files -eq 0 ]; then
+        echo "No PFM license files in partition to load" > /dev/console
+	return
+    else
+        mkdir -p ${license_rootfs_path}
+        rm -f ${license_rootfs_path}/*.pfm
+        rm -f ${license_rootfs_path}/license_info.*
+        cp ${temp}/license/* ${license_rootfs_path}/.
+        echo "PFM License files loaded successfully" > /dev/console
+    fi
+
+    #Clear the temp files and directory
+    rm ${temp}/license.tar.gz
+    rm -rf ${temp}/license
+
+}
+
+
+boot()
+{
+	read_license_from_partition
+	generate_license_info
+	echo 3 > /proc/sys/vm/drop_caches
+	sleep 1
+	echo 1 > /sys/kernel/license_manager/license_rescan
+}

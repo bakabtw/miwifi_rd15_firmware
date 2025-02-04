@@ -1,0 +1,8 @@
+Package: boot_check
+Version: 1-1.1
+Depends: libc
+Source: package/miwifi/boot_check
+Section: net
+Architecture: arm_cortex-a7_neon-vfpv4
+Installed-Size: 12412
+Description:  check boot successfully?

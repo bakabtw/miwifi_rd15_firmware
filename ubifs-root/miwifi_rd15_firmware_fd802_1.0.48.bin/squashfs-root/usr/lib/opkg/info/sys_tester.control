@@ -1,0 +1,8 @@
+Package: sys_tester
+Version: 2.0-1.1
+Depends: libc, kmod-mtdtests
+Source: package/miwifi/system/sys_tester
+Section: data
+Architecture: arm_cortex-a7_neon-vfpv4
+Installed-Size: 7998
+Description:  sys_tester

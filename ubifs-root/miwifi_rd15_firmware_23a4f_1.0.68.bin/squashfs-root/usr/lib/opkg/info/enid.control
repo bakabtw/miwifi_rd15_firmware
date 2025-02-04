@@ -1,0 +1,8 @@
+Package: enid
+Version: 0
+Depends: libc, libubox
+Source: package/miwifi/enid
+Section: net
+Architecture: arm_cortex-a7_neon-vfpv4
+Installed-Size: 2227
+Description:  MiWiFi Ethernet Neighbor Info Detect

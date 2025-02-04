@@ -1,0 +1,9 @@
+Package: qca-wpa-supplicant
+Version: miwifi_git-1
+Depends: libc, libopenssl, libnl
+Source: sdk/qca_qsdk/qca_qsdk_spf12.4/feeds/qca/net/qca-hostap
+Section: QCA
+Maintainer: Qualcomm Atheros
+Architecture: arm_cortex-a7_neon-vfpv4
+Installed-Size: 535733
+Description:  WPA Supplicant

@@ -1,0 +1,10 @@
+Package: boost-iostreams
+Version: 1.68.0-4
+Depends: libc, libstdcpp, libpthread, librt, zlib, liblzma, libbz2
+Source: feeds/packages/libs/boost
+License: Boost Software License <http://www.boost.org/users/license.html>
+Section: libs
+Maintainer: Carlos M. Ferreira <carlosmf.pt@gmail.com>
+Architecture: arm_cortex-a7_neon-vfpv4
+Installed-Size: 22644
+Description:  This package contains the Boost iostreams library.

@@ -1,0 +1,8 @@
+Package: kmod-qca-nss-ecm-wifi-plugin
+Version: 5.4.213+miwifi_git-1
+Depends: kernel (=5.4.213-1-a937aa5625ec00488cff09d9e6b9bf82), kmod-qca-wifi, kmod-qca-nss-ecm
+Source: sdk/qca_qsdk/qca_qsdk_spf12.4/feeds/nss-host/qca-nss-ecm
+Section: kernel
+Architecture: arm_cortex-a7_neon-vfpv4
+Installed-Size: 2580
+Description:  (with no-nss for host mode) (with no-nss for host mode)

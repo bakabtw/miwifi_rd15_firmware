@@ -1,0 +1,8 @@
+Package: kmod-connattr-label
+Version: 5.4.213+1.0-1.0
+Depends: kernel (=5.4.213-1-a937aa5625ec00488cff09d9e6b9bf82), kmod-conntrack-attr, kmod-ipt-compat-xtables
+Source: package/miwifi/connattr-label
+Section: kernel
+Architecture: arm_cortex-a7_neon-vfpv4
+Installed-Size: 8216
+Description:  connattr-label

@@ -1,0 +1,11 @@
+Package: libjson-c
+Version: 0.15-2
+Depends: libc
+Source: package/libs/libjson-c
+License: MIT
+LicenseFiles: COPYING
+Section: libs
+Maintainer: Felix Fietkau <nbd@nbd.name>
+Architecture: arm_cortex-a7_neon-vfpv4
+Installed-Size: 23513
+Description:  This package contains a library for javascript object notation backends.

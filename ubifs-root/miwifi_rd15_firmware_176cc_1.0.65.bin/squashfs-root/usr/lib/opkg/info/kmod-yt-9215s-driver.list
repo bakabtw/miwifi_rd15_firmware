@@ -1,0 +1,3 @@
+/etc/modules.d/57-yt-9215s-driver
+/etc/modules-boot.d/57-yt-9215s-driver
+/lib/modules/5.4.213/yt_switch.ko

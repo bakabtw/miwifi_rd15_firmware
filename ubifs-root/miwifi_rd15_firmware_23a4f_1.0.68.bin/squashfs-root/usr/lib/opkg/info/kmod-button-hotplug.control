@@ -1,0 +1,9 @@
+Package: kmod-button-hotplug
+Version: 5.4.213-3
+Depends: kernel (=5.4.213-1-a937aa5625ec00488cff09d9e6b9bf82), kmod-input-core
+Source: package/kernel/button-hotplug
+Section: kernel
+Architecture: arm_cortex-a7_neon-vfpv4
+Installed-Size: 3105
+Description:  Kernel module to generate button uevent-s from input subsystem events.
+ If your device uses GPIO buttons, see gpio-button-hotplug.
